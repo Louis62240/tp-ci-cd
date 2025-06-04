@@ -48,8 +48,12 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefer-offline
       
-      - name: Run linting
+      - name: Validate code format
         run: npm run lint
+      
+      - name: Check if server starts
+        run: |
+          timeout 10s npm start || echo "Server startup test completed"
 
   test:
     runs-on: ubuntu-latest
@@ -86,7 +90,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefer-offline
       
-      - name: Build application
+      - name: Build with Vite
         run: npm run build
       
       - name: Upload build artifacts

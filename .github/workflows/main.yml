@@ -90,14 +90,17 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefer-offline
       
-      - name: Build with Vite
+      - name: Build application
         run: npm run build
       
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-files
-          path: dist/
+          path: |
+            dist/
+            src/
+          if-no-files-found: warn
 
   release:
     runs-on: ubuntu-latest

@@ -26,15 +26,15 @@
   },
   "release-it": {
     "git": {
-      "commitMessage": "Release version ${version}",
+      "commitMessage": "v${version}",
       "tagName": "v${version}",
-      "tagAnnotation": "Release version ${version}",
+      "tagAnnotation": "v${version}",
       "push": true
     },
     "github": {
       "release": true,
-      "releaseName": "Release version ${version}",
-      "releaseNotes": "Release version ${version}"
+      "releaseName": "v${version}",
+      "releaseNotes": "v${version}"
     }
   }
 }

@@ -68,7 +68,18 @@ jobs:
         run: |
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global user.name "${{ github.actor }}"
-      - name: Release
-        run: npx --yes release-it --ci
+      - name: Create Release
+        run: |
+          npm version patch
+          git push origin main
+          git push --tags
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ github.ref_name }}
+          body: |
+            Release ${{ github.ref_name }}
+            Changes:
+            - Automated release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }} 

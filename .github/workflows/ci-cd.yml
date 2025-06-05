@@ -49,6 +49,14 @@ jobs:
       - name: Run tests
         run: npm test
 
+  e2e-test:
+    needs: install
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Run E2E Test
+        run: echo "Hello E2E !"
+
   release:
     needs: [lint, test]
     runs-on: ubuntu-latest

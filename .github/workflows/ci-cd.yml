@@ -69,8 +69,10 @@ jobs:
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global user.name "${{ github.actor }}"
       - name: Create Release
+        id: release
         run: |
           VERSION=$(npm version patch --no-git-tag-version)
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
           git add package.json package-lock.json
           git commit -m "chore: bump version to ${VERSION}"
           git tag -a "${VERSION}" -m "Release ${VERSION}"
@@ -79,10 +81,10 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.release.outputs.VERSION }}
-          name: Release ${{ steps.release.outputs.VERSION }}
+          tag_name: ${{ steps.release.outputs.version }}
+          name: Release ${{ steps.release.outputs.version }}
           body: |
-            Release ${{ steps.release.outputs.VERSION }}
+            Release ${{ steps.release.outputs.version }}
             Changes:
             - Automated release
         env:
